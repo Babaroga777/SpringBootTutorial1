@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Benutzer bearbeiten</title>
+
+    <!-- Bootstrap einbinden -->
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container-fluid text-center">
+    <div><h2>Benutzer bearbeiten</h2></div>
+    <!-- Section for adding new User-->
+    <div class="m-2">
+        <a class="h4" th:href="@{/users/new}">Neuen Benutzer anlegen</a>
+    </div>
+    <!-- Shows Message "User Successfully Added"-->
+    <div th:if="${message}" class="alert alert-success text-center">
+        <!--Displays a Message-->
+        [[${message}]]
+    </div>
+    <!--User Listing TABLE-->
+    <div>
+        <table class="table table-bordered">
+            <!-- For the table colomns Name-->
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>E-Mail</th>
+                <th>Vorname</th>
+                <th>Nachname</th>
+                <th>Enabled</th> <!--Enable Status-->
+                <th></th> <!-- Empty Header to the Hyperlinks-->
+            </tr>
+            </thead>
+            <!-- For the real information data use the Thymeleaf header option-->
+            <tbody>
+                <th:block th:each="user : ${listUsers}">
+                    <tr>
+                        <!--Reference to Datafields from the User-Class-->
+                        <td>[[${user.id}]]</td>
+                        <td>[[${user.email}]]</td>
+                        <td>[[${user.firstname}]]</td>
+                        <td>[[${user.lastname}]]</td>
+                        <td>[[${user.enabled}]]</td>
+                        <!-- For the Action Hyperlink: Edit & Delete-->
+                        <td>
+                            <a class="h4 mr-3" th:href="@{'/users/edit/' + ${user.id}}">Bearbeiten</a>
+                            <a class="h4" th:href="@{'/users/delete/'+ ${user.id}}">Löschen</a>
+                        </td>
+                    </tr>
+                </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
